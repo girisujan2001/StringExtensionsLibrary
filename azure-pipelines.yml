@@ -21,8 +21,11 @@ steps:
   - script: dotnet pack StringConsumerApp.csproj --configuration $(buildConfiguration) -o $(Build.ArtifactStagingDirectory)
     displayName: "Pack NuGet Package"
 
-  - task: NuGetCommand@2
-    inputs:
-      command: "push"
-      publishVstsFeed: "StringExtensionsFeed"
-      packagesToPush: "$(Build.ArtifactStagingDirectory)/*.nupkg"
+- task: NuGetCommand@2
+  inputs:
+    command: push
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
+    nuGetFeedType: external
+    publishPackageMetadata: false
+    externalFeedUrl: 'https://pkgs.dev.azure.com/sgiri18/StringExtensionsCI/_packaging/StringExtensionsFeed/nuget/v3/index.json'
+

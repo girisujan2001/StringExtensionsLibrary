@@ -15,10 +15,10 @@ steps:
     version: '8.x'
     includePreviewVersions: true
 
-- script: dotnet build --configuration $(buildConfiguration)
+- script: dotnet build StringConsumerApp/StringConsumerApp.csproj --configuration $(buildConfiguration)
   displayName: 'Build Project'
 
-- script: dotnet pack --configuration $(buildConfiguration) -o $(Build.ArtifactStagingDirectory)
+- script: dotnet pack StringConsumerApp/StringConsumerApp.csproj --configuration $(buildConfiguration) -o $(Build.ArtifactStagingDirectory)
   displayName: 'Pack NuGet Package'
 
 - task: NuGetCommand@2

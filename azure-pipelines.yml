@@ -10,21 +10,21 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- task: UseDotNet@2
-  inputs:
-    version: '8.x'
-    includePreviewVersions: true
+  - task: UseDotNet@2
+    inputs:
+      version: '8.x'
+      includePreviewVersions: true
 
-- script: dotnet build StringConsumerApp.csproj --configuration $(buildConfiguration)
-  displayName: 'Build Project'
+  - script: dotnet build StringConsumerApp.csproj --configuration $(buildConfiguration)
+    displayName: 'Build Project'
 
-- script: dotnet pack StringConsumerApp.csproj --configuration $(buildConfiguration) -o $(Build.ArtifactStagingDirectory)
-  displayName: 'Pack NuGet Package'
+  - script: dotnet pack StringConsumerApp.csproj --configuration $(buildConfiguration) -o $(Build.ArtifactStagingDirectory)
+    displayName: 'Pack NuGet Package'
 
-- task: NuGetCommand@2
-  inputs:
-    command: push
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
-    nuGetFeedType: external
-    publishPackageMetadata: false
-    externalFeedUrl: 'https://pkgs.dev.azure.com/sgiri18/StringExtensionsCI/_packaging/StringExtensionsFeed/nuget/v3/index.json'
+  - task: NuGetCommand@2
+    inputs:
+      command: push
+      packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
+      nuGetFeedType: external
+      publishPackageMetadata: false
+      externalFeedUrl: 'https://pkgs.dev.azure.com/sgiri18/StringExtensionsCI/_packaging/StringExtensionsFeed/nuget/v3/index.json'

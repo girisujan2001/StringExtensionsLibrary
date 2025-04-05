@@ -1,7 +1,7 @@
 pool:
   name: Default
   demands:
-    - agent.name -equals YOUR_AGENT_NAME
+    - agent.name -equals MyDevAgent1
 
 trigger:
   - main

@@ -1,0 +1,28 @@
+pool:
+  name: Default
+  demands:
+    - agent.name -equals YOUR_AGENT_NAME
+
+trigger:
+  - main
+
+variables:
+  buildConfiguration: 'Release'
+
+steps:
+- task: UseDotNet@2
+  inputs:
+    version: '8.x'
+    includePreviewVersions: true
+
+- script: dotnet build --configuration $(buildConfiguration)
+  displayName: 'Build Project'
+
+- script: dotnet pack --configuration $(buildConfiguration) -o $(Build.ArtifactStagingDirectory)
+  displayName: 'Pack NuGet Package'
+
+- task: NuGetCommand@2
+  inputs:
+    command: 'push'
+    publishVstsFeed: 'YOUR_FEED_ID'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'

@@ -23,6 +23,7 @@ steps:
 
 - task: NuGetCommand@2
   inputs:
-    command: 'push'
-    publishVstsFeed: 'sgiri18/StringExtensionsCI/StringExtensionsFeed'
+    command: push
+    publishVstsFeed: 'sgiri18/StringExtensionsFeed'
     packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
+

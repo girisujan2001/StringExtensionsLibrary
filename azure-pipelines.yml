@@ -24,6 +24,9 @@ steps:
 - task: NuGetCommand@2
   inputs:
     command: push
-    publishVstsFeed: 'sgiri18/StringExtensionsFeed'
     packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
+    nuGetFeedType: external
+    publishPackageMetadata: false
+    externalFeedUrl: 'https://pkgs.dev.azure.com/sgiri18/StringExtensionsCI/_packaging/StringExtensionsFeed/nuget/v3/index.json'
+
 
